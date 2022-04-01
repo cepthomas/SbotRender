@@ -14,20 +14,6 @@ HIGHLIGHT_REGION_NAME = 'highlight_%s'
 SYNTAX_MD = 'Packages/Markdown/Markdown.sublime-syntax'
 
 
-# TODO Object-ify the functions.
-
-#-----------------------------------------------------------------------------------
-def plugin_loaded():
-    # print(">>> SbotRender plugin_loaded()")
-    pass
-
-
-#-----------------------------------------------------------------------------------
-def plugin_unloaded():
-    # print("SbotRender plugin_unloaded()")
-    pass
-
-
 #-----------------------------------------------------------------------------------
 class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     ''' Make a pretty. '''
@@ -74,9 +60,9 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         '''
         The worker thread.
         html render msec per line:
-        - medium (5000 dense lines) 1.25
-        - small (1178 sparse lines) 0.40
-        - biggish (20616 dense lines = 3Mb) 1.36
+          - medium (5000 dense lines) 1.25
+          - small (1178 sparse lines) 0.40
+          - biggish (20616 dense lines = 3Mb) 1.36
         '''
 
         # Get prefs.

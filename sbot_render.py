@@ -14,6 +14,8 @@ HIGHLIGHT_REGION_NAME = 'highlight_%s'
 SYNTAX_MD = 'Packages/Markdown/Markdown.sublime-syntax'
 
 
+# TODO Object-ify the functions.
+
 #-----------------------------------------------------------------------------------
 def plugin_loaded():
     # print(">>> SbotRender plugin_loaded()")

@@ -18,16 +18,12 @@ SYNTAX_MD = 'Packages/Markdown/Markdown.sublime-syntax'
 class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     ''' Make a pretty. '''
 
-    def __init__(self, view):
-        # Get prefs.
-        self.rows = 0
-        self.row_num = 0
-        super(SbotRenderToHtmlCommand, self).__init__(view)
-        self.view = view
-        self.line_numbers = False
+    _rows = 0
+    _row_num = 0
+    _line_numbers = False
 
     def run(self, edit, line_numbers):
-        self.line_numbers = line_numbers
+        self._line_numbers = line_numbers
         settings = sublime.load_settings("SbotRender.sublime-settings")
         render_max_file = settings.get('render_max_file')
         fsize = self.view.size() / 1024.0 / 1024.0
@@ -41,17 +37,17 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
 
     def _update_status(self):
         ''' Runs in main thread. '''
-        if self.row_num == 0:
+        if self._row_num == 0:
             self.view.set_status('render', 'Render setting up')
             # self.view.show_popup('Render setting up')
             sublime.set_timeout(self._update_status, 100)
-        elif self.row_num >= self.rows:
+        elif self._row_num >= self._rows:
             self.view.set_status('render', 'Render done')
             # self.view.update_popup('Render done')
             # self.view.hide_popup()
         else:
-            if self.rows % 100 == 0:
-                self.view.set_status('render', f'Render {self.row_num} of {self.rows}')
+            if self._rows % 100 == 0:
+                self.view.set_status('render', f'Render {self._row_num} of {self._rows}')
 
             # sublime.set_timeout(lambda: self._update_status(), 100)
             sublime.set_timeout(self._update_status, 100)
@@ -76,8 +72,8 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         region_styles = []  # One [(Region, style)] per line
         highlight_regions = []  # (Region, style))
 
-        self.rows, _ = self.view.rowcol(self.view.size())
-        self.row_num = 0
+        self._rows, _ = self.view.rowcol(self.view.size())
+        self._row_num = 0
 
         # Local helpers.
         def _add_style(style):
@@ -121,7 +117,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         for region in _get_sel_regions(self.view):
             for line_region in self.view.split_by_newlines(region):
                 # pc.start()
-                self.row_num += 1
+                self._row_num += 1
 
                 line_styles = []  # (Region, style))
 
@@ -206,7 +202,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
 
         for line_styles in region_styles:
             # Start line.
-            content.append(f'<p>{line_num:0{gutter_size}} ' if self.line_numbers else "<p>")
+            content.append(f'<p>{line_num:0{gutter_size}} ' if self._line_numbers else "<p>")
 
             if len(line_styles) == 0:
                 content.append('<br>')

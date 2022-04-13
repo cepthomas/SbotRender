@@ -8,10 +8,8 @@ import sublime
 import sublime_plugin
 
 
-# This matches the define in sbot_highlight.py.
-HIGHLIGHT_REGION_NAME = 'highlight_%s'
-
-SYNTAX_MD = 'Packages/Markdown/Markdown.sublime-syntax'
+# This must match the define in sbot_highlight.py.
+HIGHLIGHT_REGION_NAME = 'highlight_%s_region'
 
 
 #-----------------------------------------------------------------------------------
@@ -253,7 +251,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
     ''' Turn md into html.'''
 
     def is_visible(self):
-        return self.view.settings().get('syntax') == SYNTAX_MD
+        return self.view.settings().get('syntax') == 'Packages/Markdown/Markdown.sublime-syntax'
 
     def run(self, edit):
         # Get prefs.

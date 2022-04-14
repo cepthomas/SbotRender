@@ -7,6 +7,11 @@ from html import escape
 import sublime
 import sublime_plugin
 
+try:
+    from SbotCommon.sbot_common import get_sel_regions
+except ModuleNotFoundError as e:
+    sublime.message_dialog('SbotRender plugin requires SbotCommon plugin')
+
 
 # This must match the define in sbot_highlight.py.
 HIGHLIGHT_REGION_NAME = 'highlight_%s_region'
@@ -112,7 +117,8 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         # Tokenize selection by syntax scope.
         # pc = SbotPerfCounter('render_html')
 
-        for region in _get_sel_regions(self.view):
+        settings = sublime.load_settings(f"SbotRender.sublime-settings")
+        for region in get_sel_regions(self.view, settings):
             for line_region in self.view.split_by_newlines(region):
                 # pc.start()
                 self._row_num += 1
@@ -264,7 +270,8 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         html.append(f"<style>body {{ background-color:{html_background}; font-family:{html_md_font_face}; font-size:{html_font_size}; }}</style>")
         # To support Unicode input, you must add <meta charset="utf-8"> to the *top* of your document (in the first 512 bytes).
 
-        for region in _get_sel_regions(self.view):
+        settings = sublime.load_settings(f"SbotRender.sublime-settings")
+        for region in get_sel_regions(self.view, settings):
             html.append(self.view.substr(region))
 
         html.append("<!-- Markdeep: --><style class=\"fallback\">body{visibility:hidden;white-space:pre}</style><script src=\"markdeep.min.js\" charset=\"utf-8\"></script><script src=\"https://casual-effects.com/markdeep/latest/markdeep.min.js\" charset=\"utf-8\"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=\"visible\")</script>")
@@ -296,16 +303,3 @@ def _output_html(view, content=None):
             f.write(s)
         if output_type == 'show':
             webbrowser.open_new_tab(fn)
-
-
-#-----------------------------------------------------------------------------------
-def _get_sel_regions(view):
-    ''' Function to get selections or optionally the whole view.'''
-    regions = []
-    if len(view.sel()[0]) > 0:  # user sel
-        regions = view.sel()
-    else:
-        settings = sublime.load_settings("SbotRender.sublime-settings")
-        if settings.get('sel_all'):
-            regions = [sublime.Region(0, view.size())]
-    return regions

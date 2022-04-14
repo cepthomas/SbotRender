@@ -7,6 +7,8 @@ Sublime Text plugin to do simple render to html with styles and highlights, prim
 
 Built for Windows and ST4. Other OSes and ST versions will require some hacking.
 
+Requires SbotCommon plugin.
+
 ## Commands
 | Command                    | Implementation | Description                          | Args      |
 | :--------                  | :-------       | :-------                             | :-----    |

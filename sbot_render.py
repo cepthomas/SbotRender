@@ -10,7 +10,7 @@ import sublime_plugin
 try:
     from SbotCommon.sbot_common import get_sel_regions
 except ModuleNotFoundError as e:
-    sublime.message_dialog('SbotRender plugin requires SbotCommon plugin')
+    raise ImportError('SbotRender plugin requires SbotCommon plugin')
 
 
 # This must match the define in sbot_highlight.py.

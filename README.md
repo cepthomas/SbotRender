@@ -5,7 +5,7 @@ Sublime Text plugin to do simple render to html with styles and highlights, prim
 - Version to render markdown file to html using [Markdeep](https://casual-effects.com/markdeep/).
 - Note that relative links (like graphics) are currently broken. If it's important, you should manually copy them to the temp directory.
 
-Built for Windows and ST4. Other OSes and ST versions will require some hacking.
+Built for Windows and ST4.
 
 Requires SbotCommon plugin.
 

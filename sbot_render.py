@@ -28,9 +28,9 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     def run(self, edit, line_numbers):
         self._line_numbers = line_numbers
         settings = sublime.load_settings("SbotRender.sublime-settings")
-        render_max_file = settings.get('render_max_file')
+        max_file = settings.get('max_file')
         fsize = self.view.size() / 1024.0 / 1024.0
-        if fsize > render_max_file:
+        if fsize > max_file:
             sublime.message_dialog('File too large to render. If you really want to, change your settings')
         else:
             self._do_render()
@@ -96,9 +96,9 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         sublime.set_timeout(self._update_status, 100)
 
         # If there are highlights, collect them. This is copy/paste from SbotHighlight, sorry.
-        highlight_scopes = settings.get('highlight_scopes')
+        scopes = settings.get('scopes')
 
-        for _, value in enumerate(highlight_scopes):
+        for _, value in enumerate(scopes):
             # Get the style and invert for highlights.
             ss = self.view.style_for_scope(value)
             background = ss['background'] if 'background' in ss else ss['foreground']
@@ -283,7 +283,7 @@ def _output_html(view, content=None):
     ''' Common html file formatter. '''
 
     settings = sublime.load_settings("SbotRender.sublime-settings")
-    output_type = settings.get('render_output')
+    output_type = settings.get('output')
     s = "" if content is None else "".join(content)
 
     if output_type == 'clipboard':

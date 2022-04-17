@@ -23,5 +23,5 @@ Requires SbotCommon plugin.
 | `html_md_font_face`  | For rendered markdown      | font name - usually prettier than html_font_face |
 | `html_font_size`     | For rendered html/markdown | point size |
 | `html_background`    | Background olor            | color name |
-| `render_output`      | Where to render to         | `clipboard` OR `file` (fn/temp + .html) OR `show` (in browser) |
-| `render_max_file`    | Max file size to render    | in Mb |
+| `output`             | Where to render to         | `clipboard` OR `file` (fn/temp + .html) OR `show` (in browser) |
+| `max_file`           | Max file size to render    | in Mb |

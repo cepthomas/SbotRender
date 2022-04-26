@@ -1,21 +1,24 @@
 # What It Is
+
 Sublime Text plugin to do simple render to html with styles and highlights, primarily for printing.
 
 - Line wrap with optional line numbers.
 - Version to render markdown file to html using [Markdeep](https://casual-effects.com/markdeep/).
 - Note that relative links (like graphics) are currently broken. If it's important, you should manually copy them to the temp directory.
 
-Built for Windows and ST4.
+Built for ST4 on Windows.
 
-Requires SbotCommon plugin.
+Requires [SbotCommon](https://github.com/cepthomas/SbotCommon) plugin.
 
 ## Commands
+
 | Command                    | Implementation | Description                          | Args      |
 | :--------                  | :-------       | :-------                             | :-----    |
 | `sbot_render_to_html`      | Context        | Render current file                  | `line_numbers` = include line numbers |
 | `sbot_render_markdown`     | Context        | Render current markdown file to html | |
 
 ## Settings
+
 | Setting              | Description                | Options   |
 | :--------            | :-------                   | :------   |
 | `sel_all`            | Selection default          | if `true` and no user selection, assumes the whole document (like ST) |

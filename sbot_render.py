@@ -3,18 +3,20 @@ import math
 import textwrap
 import pathlib
 import webbrowser
-from html import escape
+import html
 import sublime
 import sublime_plugin
 
 try:
     from SbotCommon.sbot_common import get_sel_regions, slog
 except ModuleNotFoundError:
+    sublime.message_dialog('SbotRender plugin requires SbotCommon plugin')
     raise ImportError('SbotRender plugin requires SbotCommon plugin')
 
 
 # This must match the define in sbot_highlight.py.
 HIGHLIGHT_REGION_NAME = 'highlight_%s_region'
+RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
 
 
 #-----------------------------------------------------------------------------------
@@ -27,7 +29,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, line_numbers):
         self._line_numbers = line_numbers
-        settings = sublime.load_settings("SbotRender.sublime-settings")
+        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
         max_file = settings.get('max_file')
         fsize = self.view.size() / 1024.0 / 1024.0
         if fsize > max_file:
@@ -65,7 +67,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         '''
 
         # Get prefs.
-        settings = sublime.load_settings("SbotRender.sublime-settings")
+        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
         html_font_size = settings.get('html_font_size')
         html_font_face = settings.get('html_font_face')
         html_background = settings.get('html_background')
@@ -117,7 +119,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         # Tokenize selection by syntax scope.
         # pc = SbotPerfCounter('render_html')
 
-        settings = sublime.load_settings("SbotRender.sublime-settings")
+        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
         for region in get_sel_regions(self.view, settings):
             for line_region in self.view.split_by_newlines(region):
                 # pc.start()
@@ -217,7 +219,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
 
                     # Locate the style.
                     stid = _get_style(style)
-                    content.append(f'<span class=st{stid}>{escape(text)}</span>' if stid >= 0 else text)
+                    content.append(f'<span class=st{stid}>{html.escape(text)}</span>' if stid >= 0 else text)
 
             # Done line.
             content.append('</p>\n')
@@ -261,7 +263,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
         # Get prefs.
-        settings = sublime.load_settings("SbotRender.sublime-settings")
+        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
         html_background = settings.get('html_background')
         html_font_size = settings.get('html_font_size')
         html_md_font_face = settings.get('html_md_font_face')
@@ -270,7 +272,6 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         html.append(f"<style>body {{ background-color:{html_background}; font-family:{html_md_font_face}; font-size:{html_font_size}; }}</style>")
         # To support Unicode input, you must add <meta charset="utf-8"> to the *top* of your document (in the first 512 bytes).
 
-        settings = sublime.load_settings("SbotRender.sublime-settings")
         for region in get_sel_regions(self.view, settings):
             html.append(self.view.substr(region))
 
@@ -282,7 +283,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
 def _output_html(view, content=None):
     ''' Common html file formatter. '''
 
-    settings = sublime.load_settings("SbotRender.sublime-settings")
+    settings = sublime.load_settings(RENDER_SETTINGS_FILE)
     output_type = settings.get('output')
     s = "" if content is None else "".join(content)
 

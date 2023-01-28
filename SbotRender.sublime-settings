@@ -1,7 +1,7 @@
 {
     // Html cosmetics.
-    "html_font_face": "Consolas",
-    "html_md_font_face": "Tahoma",
+    "html_font_face": "Cascadia Code",
+    "html_md_font_face": "Cascadia Code",
     "html_font_size": 14,
     // If you need to change the bg color. Not done automatically from color scheme.
     "html_background": "GhostWhite",
@@ -14,5 +14,5 @@
     "sel_all": true,
 
     // Scopes for rendering text with highlights. These generally should match SbotHighlight.
-    "scopes": [ "string", "constant.language", "comment", "markup.list", "variable", "invalid" ],
+    "scopes": [ "string", "constant.language", "comment", "markup.underline.link", "variable", "invalid" ],
 }

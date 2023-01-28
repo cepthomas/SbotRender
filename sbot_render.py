@@ -232,7 +232,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
             <head>
             <meta charset="utf-8">
             <style  type="text/css">
-            .contentpane {{ font-family: {html_font_face}; font-size: {html_font_size/16}em; background-color: {html_background}; text-indent: -{padding1}em; padding-left: {padding2}em; }}
+            .contentpane {{ font-family: {html_font_face}; font-size: {html_font_size / 16}em; background-color: {html_background}; text-indent: -{padding1}em; padding-left: {padding2}em; }}
             p {{ white-space: pre-wrap; margin: 0em; }}
             ''')
 
@@ -269,8 +269,12 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         html_md_font_face = settings.get('html_md_font_face')
 
         html = []
-        html.append(f"<style>body {{ background-color:{html_background}; font-family:{html_md_font_face}; font-size:{html_font_size}; }}</style>")
-        # To support Unicode input, you must add <meta charset="utf-8"> to the *top* of your document (in the first 512 bytes).
+
+        css_file = os.path.join(sublime.packages_path(), "SbotRender", "md_render.css")
+
+        html.append("<meta charset=\"utf-8\">")
+        # html.append("<style class=\"fallback\">body{visibility:hidden}</style>")
+        html.append(f"<link rel=\"stylesheet\" href=\"{css_file}?\">")
 
         for region in get_sel_regions(self.view, settings):
             html.append(self.view.substr(region))

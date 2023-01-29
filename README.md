@@ -19,12 +19,11 @@ Requires [SbotCommon](https://github.com/cepthomas/SbotCommon) plugin.
 
 ## Settings
 
-| Setting              | Description                | Options   |
-| :--------            | :-------                   | :------   |
+| Setting              | Description                | Options    |
+| :--------            | :-------                   | :------    |
 | `sel_all`            | Selection default          | if `true` and no user selection, assumes the whole document (like ST) |
 | `html_font_face`     | For rendered html          | font name - usually monospace |
-| `html_md_font_face`  | For rendered markdown      | font name - usually prettier than html_font_face |
 | `html_font_size`     | For rendered html/markdown | point size |
 | `html_background`    | Background olor            | color name |
 | `output`             | Where to render to         | `clipboard` OR `file` (fn/temp + .html) OR `show` (in browser) |
-| `max_file`           | Max file size to render    | in Mb |
+| `max_file`           | Max file size to render    | in Mb      |

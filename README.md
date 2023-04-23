@@ -12,18 +12,18 @@ Requires [SbotCommon](https://github.com/cepthomas/SbotCommon) plugin.
 
 ## Commands
 
-| Command                    | Implementation | Description                          | Args      |
-| :--------                  | :-------       | :-------                             | :-----    |
+| Command                    | Implementation | Description                          | Args                                  |
+| :--------                  | :-------       | :-------                             | :-----                                |
 | `sbot_render_to_html`      | Context        | Render current file                  | `line_numbers` = include line numbers |
-| `sbot_render_markdown`     | Context        | Render current markdown file to html | |
+| `sbot_render_markdown`     | Context        | Render current markdown file to html |                                       |
 
 ## Settings
 
-| Setting              | Description                | Options    |
-| :--------            | :-------                   | :------    |
+| Setting              | Description                | Options                                                               |
+| :--------            | :-------                   | :------                                                               |
 | `sel_all`            | Selection default          | if `true` and no user selection, assumes the whole document (like ST) |
-| `html_font_face`     | For rendered html          | font name - usually monospace |
-| `html_font_size`     | For rendered html/markdown | point size |
-| `html_background`    | Background olor            | color name |
-| `output`             | Where to render to         | `clipboard` OR `file` (fn/temp + .html) OR `show` (in browser) |
-| `max_file`           | Max file size to render    | in Mb      |
+| `html_font_face`     | For rendered html          | font name - usually monospace                                         |
+| `html_font_size`     | For rendered html/markdown | point size                                                            |
+| `html_background`    | Background olor            | color name                                                            |
+| `output`             | Where to render to         | `clipboard` OR `file` (fn/temp + .html) OR `show` (in browser)        |
+| `max_file`           | Max file size to render    | in Mb                                                                 |

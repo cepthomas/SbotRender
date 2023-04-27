@@ -8,8 +8,6 @@ Sublime Text plugin to do simple render to html with styles and highlights, prim
 
 Built for ST4 on Windows.
 
-Requires [SbotCommon](https://github.com/cepthomas/SbotCommon) plugin.
-
 ## Commands
 
 | Command                    | Implementation | Description                          | Args                                  |

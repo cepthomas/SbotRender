@@ -93,9 +93,9 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         sublime.set_timeout(self._update_status, 100)
 
         # If there are highlights, collect them. This is copy/paste from SbotHighlight, sorry.
-        scopes = settings.get('scopes')
+        highlight_scopes = settings.get('highlight_scopes')
 
-        for _, value in enumerate(scopes):
+        for _, value in enumerate(highlight_scopes):
             # Get the style and invert for highlights.
             ss = self.view.style_for_scope(value)
             background = ss['background'] if 'background' in ss else ss['foreground']

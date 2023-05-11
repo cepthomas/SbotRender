@@ -16,5 +16,5 @@
     "sel_all": true,
 
     // Scopes for rendering text with highlights. These generally should match SbotHighlight.
-    "highlight_scopes": [ "string", "constant.language", "comment", "markup.underline.link", "variable", "invalid" ],
+    "highlight_scopes": [ "string", "variable", "markup.underline.link", "constant.language", "comment", "invalid" ],
 }

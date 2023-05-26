@@ -6,7 +6,7 @@ import webbrowser
 import html
 import sublime
 import sublime_plugin
-from .sbot_common import *
+from . import sbot_common as sc
 
 
 # This must match the define in sbot_highlight.py.
@@ -115,7 +115,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         # pc = SbotPerfCounter('render_html')
 
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-        for region in get_sel_regions(self.view, settings):
+        for region in sc.get_sel_regions(self.view, settings):
             for line_region in self.view.split_by_newlines(region):
                 # pc.start()
                 self._row_num += 1
@@ -270,7 +270,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         # html.append("<style class=\"fallback\">body{visibility:hidden}</style>")
         html.append(f"<link rel=\"stylesheet\" href=\"{css_file}?\">")
 
-        for region in get_sel_regions(self.view, settings):
+        for region in sc.get_sel_regions(self.view, settings):
             html.append(self.view.substr(region))
 
         html.append("<!-- Markdeep: --><style class=\"fallback\">body{visibility:hidden;white-space:pre}</style><script src=\"markdeep.min.js\" charset=\"utf-8\"></script><script src=\"https://casual-effects.com/markdeep/latest/markdeep.min.js\" charset=\"utf-8\"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=\"visible\")</script>")

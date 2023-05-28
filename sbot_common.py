@@ -17,6 +17,8 @@ CAT_TRC = 'TRC'
 CAT_DBG = 'DBG'
 CAT_EXC = 'EXC'
 
+# This is shared across plugins.
+HIGHLIGHT_REGION_NAME = 'highlight_%s_region'
 
 #-----------------------------------------------------------------------------------
 def slog(cat: str, message='???'):
@@ -112,7 +114,7 @@ def start_file(filepath):
         elif platform.system() == 'Windows':    # Windows
             os.startfile(filepath)
         else:                                   # linux variants
-            re = subprocess.call(('xdg-open', filepath))
+            ret = subprocess.call(('xdg-open', filepath))
     except Exception as e:
         slog(CAT_ERR, f'{e}')
         ret = 999

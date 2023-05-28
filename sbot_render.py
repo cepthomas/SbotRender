@@ -9,8 +9,6 @@ import sublime_plugin
 from . import sbot_common as sc
 
 
-# This must match the define in sbot_highlight.py.
-HIGHLIGHT_REGION_NAME = 'highlight_%s_region'
 RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
 
 
@@ -104,7 +102,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
             _add_style(hl_style)
 
             # Collect the highlight regions.
-            reg_name = HIGHLIGHT_REGION_NAME % value
+            reg_name = sc.HIGHLIGHT_REGION_NAME % value
             for region in self.view.get_regions(reg_name):
                 highlight_regions.append((region, hl_style))
 

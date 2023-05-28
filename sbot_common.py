@@ -101,7 +101,7 @@ def wait_load_file(window, fpath, line):
         slog(CAT_ERR, f'Failed to open {fpath} {e}')
         vnew = None
 
-    return vnew    
+    return vnew
 
 
 #-----------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ def start_file(filepath):
         elif platform.system() == 'Windows':    # Windows
             os.startfile(filepath)
         else:                                   # linux variants
-            ret = subprocess.call(('xdg-open', filepath))
+            re = subprocess.call(('xdg-open', filepath))
     except Exception as e:
         slog(CAT_ERR, f'{e}')
         ret = 999

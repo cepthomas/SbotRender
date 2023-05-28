@@ -7,7 +7,7 @@ Built for ST4 on Windows.
 - Line wrap with optional line numbers.
 - Version to render markdown file to html using [Markdeep](https://casual-effects.com/markdeep/).
 - Note that relative links (like graphics) are currently broken. If it's important, you should manually copy them to the temp directory.
-- The setting `highlight_scopes` should match [SbotHighlight](https://github.com/cepthomas/SbotHighlight) if you are using it. The defaults are just a wild guess.
+- The setting `highlight_scopes` should match [SbotHighlight](https://github.com/cepthomas/SbotHighlight) if you are using it. The defaults are just a wild guess and need to be customized.
 
 
 ## Commands

@@ -90,19 +90,20 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         # Start progress.
         sublime.set_timeout(self._update_status, 100)
 
-        # If there are highlights, collect them. This is copy/paste from SbotHighlight, sorry.
+        # If there are SbotHighlight highlights, collect them.
         highlight_scopes = settings.get('highlight_scopes')
 
-        for _, value in enumerate(highlight_scopes):
+        for hl_index in range(len(highlight_scopes)):
             # Get the style and invert for highlights.
-            ss = self.view.style_for_scope(value)
-            background = ss['background'] if 'background' in ss else ss['foreground']
-            foreground = html_background
+            ss = self.view.style_for_scope(highlight_scopes[hl_index])
+            sc.slog('===', f'{ss}')
+            background = ss['background'] if 'background' in ss else None
+            foreground = ss['foreground'] if 'foreground' in ss else None
             hl_style = (foreground, background, False, False)
             _add_style(hl_style)
 
             # Collect the highlight regions.
-            reg_name = sc.HIGHLIGHT_REGION_NAME % value
+            reg_name = sc.HIGHLIGHT_REGION_NAME % hl_index
             for region in self.view.get_regions(reg_name):
                 highlight_regions.append((region, hl_style))
 

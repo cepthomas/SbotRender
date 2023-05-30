@@ -96,7 +96,6 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         for hl_index in range(len(highlight_scopes)):
             # Get the style and invert for highlights.
             ss = self.view.style_for_scope(highlight_scopes[hl_index])
-            sc.slog('===', f'{ss}')
             background = ss['background'] if 'background' in ss else None
             foreground = ss['foreground'] if 'foreground' in ss else None
             hl_style = (foreground, background, False, False)

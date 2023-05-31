@@ -7,7 +7,6 @@ Built for ST4 on Windows.
 - Line wrap with optional line numbers.
 - Version to render markdown file to html using [Markdeep](https://casual-effects.com/markdeep/).
 - Note that relative links (like graphics) are currently broken. If it's important, you should manually copy them to the temp directory.
-- The setting `highlight_scopes` should match [SbotHighlight](https://github.com/cepthomas/SbotHighlight) if you are using it. The defaults are just a wild guess and need to be customized.
 
 
 ## Commands
@@ -27,4 +26,18 @@ Built for ST4 on Windows.
 | html_background      | Background olor                          | color name                                                            |
 | output               | Where to render to                       | clipboard OR file (fn/temp + .html) OR show (in browser)              |
 | max_file             | Max file size to render                  | in Mb                                                                 |
-| highlight_scopes     | List of up to 6 scope names for commands |                                                                       |
+
+## Colors
+You need to supply something like these in your sublime-color-scheme file:
+```
+{ "scope": "markup.user_hl1", "background": "red", "foreground": "white" },
+{ "scope": "markup.user_hl2", "background": "green", "foreground": "white" },
+{ "scope": "markup.user_hl3", "background": "blue", "foreground": "white" },
+{ "scope": "markup.user_hl4", "background": "yellow", "foreground": "black" },
+{ "scope": "markup.user_hl5", "background": "lime", "foreground": "black" },
+{ "scope": "markup.user_hl6", "background": "cyan", "foreground": "black" },
+{ "scope": "markup.fixed_hl1", "background": "whitesmoke", "foreground": "red" },
+{ "scope": "markup.fixed_hl2", "background": "whitesmoke", "foreground": "green" },
+{ "scope": "markup.fixed_hl3", "background": "whitesmoke", "foreground": "blue" },
+```
+These work for all members of the sbot family.

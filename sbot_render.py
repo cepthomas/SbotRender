@@ -91,7 +91,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         sublime.set_timeout(self._update_status, 100)
 
         # If there are SbotHighlight highlights, collect them.
-        highlight_scopes = settings.get('highlight_scopes')
+        highlight_scopes = _get_highlight_scopes()
 
         for hl_index in range(len(highlight_scopes)):
             # Get the style and invert for highlights.
@@ -300,3 +300,14 @@ def _output_html(view, content=None):
             f.write(s)
         if output_type == 'show':
             webbrowser.open_new_tab(fn)
+
+
+#-----------------------------------------------------------------------------------
+def _get_highlight_scopes():
+    ''' Get list of known scope names. These need to be supplied in your color scheme. '''
+    scopes = []
+    for i in range(6): # magical knowledge
+        scopes.append(f'markup.user_hl{i + 1}')
+    for i in range(3): # magical knowledge
+        scopes.append(f'markup.fixed_hl{i + 1}')
+    return scopes

@@ -65,7 +65,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         html_font_face = settings.get('html_font_face')
         html_background = settings.get('html_background')
 
-        # Collect scope/style info.
+        # Collect scope/style info. Styles will be turned into html styles.
         all_styles = {}  # k:style v:id
         region_styles = []  # One [(Region, style)] per line
         highlight_regions = []  # (Region, style))
@@ -91,22 +91,20 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         sublime.set_timeout(self._update_status, 100)
 
         # If there are SbotHighlight highlights, collect them.
-        highlight_scopes = _get_highlight_scopes()
+        hl_info = sc.get_highlight_info('all')
 
-        for hl_index in range(len(highlight_scopes)):
-            # Get the style and invert for highlights.
-            ss = self.view.style_for_scope(highlight_scopes[hl_index])
+        for hl in hl_info:
+            ss = self.view.style_for_scope(hl.scope_name)
             background = ss['background'] if 'background' in ss else None
             foreground = ss['foreground'] if 'foreground' in ss else None
             hl_style = (foreground, background, False, False)
             _add_style(hl_style)
 
-            # Collect the highlight regions.
-            reg_name = sc.HIGHLIGHT_REGION_NAME % hl_index
-            for region in self.view.get_regions(reg_name):
+            # Assign style to the highlight regions.
+            for region in self.view.get_regions(hl.region_name):
                 highlight_regions.append((region, hl_style))
 
-        # Put all in order.
+        # Put all regions in order.
         highlight_regions.sort(key=lambda r: r[0].a)
 
         # Tokenize selection by syntax scope.
@@ -300,14 +298,3 @@ def _output_html(view, content=None):
             f.write(s)
         if output_type == 'show':
             webbrowser.open_new_tab(fn)
-
-
-#-----------------------------------------------------------------------------------
-def _get_highlight_scopes():
-    ''' Get list of known scope names. These need to be supplied in your color scheme. '''
-    scopes = []
-    for i in range(6): # magical knowledge
-        scopes.append(f'markup.user_hl{i + 1}')
-    for i in range(3): # magical knowledge
-        scopes.append(f'markup.fixed_hl{i + 1}')
-    return scopes

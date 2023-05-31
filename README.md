@@ -11,10 +11,10 @@ Built for ST4 on Windows.
 
 ## Commands
 
-| Command                    | Implementation | Description                          | Args                                  |
-| :--------                  | :-------       | :-------                             | :-----                                |
-| sbot_render_to_html        | Context        | Render current file                  | line_numbers = include line numbers   |
-| sbot_render_markdown       | Context        | Render current markdown file to html |                                       |
+| Command                    | Type     | Description                          | Args                                  |
+| :--------                  | :------- | :-------                             | :-----                                |
+| sbot_render_to_html        | Context  | Render current file                  | line_numbers = include line numbers   |
+| sbot_render_markdown       | Context  | Render current markdown file to html |                                       |
 
 ## Settings
 

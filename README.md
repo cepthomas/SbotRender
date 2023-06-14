@@ -36,8 +36,9 @@ You need to supply something like these in your sublime-color-scheme file:
 { "scope": "markup.user_hl4", "background": "yellow", "foreground": "black" },
 { "scope": "markup.user_hl5", "background": "lime", "foreground": "black" },
 { "scope": "markup.user_hl6", "background": "cyan", "foreground": "black" },
-{ "scope": "markup.fixed_hl1", "background": "whitesmoke", "foreground": "red" },
-{ "scope": "markup.fixed_hl2", "background": "whitesmoke", "foreground": "green" },
-{ "scope": "markup.fixed_hl3", "background": "whitesmoke", "foreground": "blue" },
+{ "scope": "markup.fixed_hl1", "background": "gainsboro", "foreground": "red" },
+{ "scope": "markup.fixed_hl2", "background": "gainsboro", "foreground": "green" },
+{ "scope": "markup.fixed_hl3", "background": "gainsboro", "foreground": "blue" },
 ```
 These work for all members of the sbot family.
+See [Color customization](https://www.sublimetext.com/docs/color_schemes.html#customization).

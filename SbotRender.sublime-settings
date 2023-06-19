@@ -3,7 +3,7 @@
     "html_font_face": "Cascadia Code",
     "html_font_size": 14,
     // If you need to change the bg color. Not done automatically from color scheme.
-    "html_background": "GhostWhite",
+    "html_background": "snow",
 
     // Optional css style.
     "md_render_css": "",

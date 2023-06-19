@@ -84,7 +84,11 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
             return all_styles.get(style, -1)
 
         def _view_style_to_tuple(view_style):
-            tt = (view_style['foreground'], view_style.get('background', None), view_style.get('bold', False), view_style.get('italic', False))
+            tt = (view_style['foreground'],
+                  view_style.get('background', None),
+                  view_style.get('bold', False),
+                  view_style.get('italic', False),
+                  view_style.get('underline', False))
             return tt
 
         # Start progress.
@@ -97,7 +101,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
             ss = self.view.style_for_scope(hl.scope_name)
             background = ss['background'] if 'background' in ss else None
             foreground = ss['foreground'] if 'foreground' in ss else None
-            hl_style = (foreground, background, False, False)
+            hl_style = (foreground, background, False, False, False)
             _add_style(hl_style)
 
             # Assign style to the highlight regions.
@@ -185,6 +189,8 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
                 props += 'font-weight:bold; '
             if style[3]:
                 props += 'font-style:italic; '
+            if style[4]:
+                props += 'text-decoration:underline; '
             props += '}'
             style_text += f'.st{stid} {props}\n'
 

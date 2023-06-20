@@ -47,7 +47,6 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
             if self._rows % 100 == 0:
                 self.view.set_status('render', f'Render {self._row_num} of {self._rows}')
 
-            # sublime.set_timeout(lambda: self._update_status(), 100)
             sublime.set_timeout(self._update_status, 100)
 
     def _do_render(self):
@@ -113,7 +112,6 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
 
         # Tokenize selection by syntax scope.
         # pc = SbotPerfCounter('render_html')
-
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
         for region in sc.get_sel_regions(self.view, settings):
             for line_region in self.view.split_by_newlines(region):
@@ -192,7 +190,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
             if style[4]:
                 props += 'text-decoration:underline; '
             props += '}'
-            style_text += f'.st{stid} {props}\n'
+            style_text += f'            .st{stid} {props}\n'
 
         # Content text.
         content = []
@@ -202,10 +200,11 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         gutter_size = math.ceil(math.log(len(region_styles), 10))
         padding1 = 1.4 + gutter_size * 0.5
         padding2 = padding1
+        indent = '            '
 
         for line_styles in region_styles:
             # Start line.
-            content.append(f'<p>{line_num:0{gutter_size}} ' if self._line_numbers else "<p>")
+            content.append(f'{indent}<p>{line_num:0{gutter_size}} ' if self._line_numbers else f'{indent}<p>')
 
             if len(line_styles) == 0:
                 content.append('<br>')
@@ -222,33 +221,42 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
             content.append('</p>\n')
             line_num += 1
 
+        # Give it a name.
+        name = self.view.name()
+        if (name is None or name == '') and self.view.file_name() is not None:
+            name = os.path.basename(os.path.splitext(self.view.file_name())[0])
+        if (name is None or name == ''):
+            name = 'temp'
+
         # Output html.
-        html1 = textwrap.dedent(f'''
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <meta charset="utf-8">
-            <style  type="text/css">
+        html1 = f'''
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>{name}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <style  type="text/css">
             .contentpane {{ font-family: {html_font_face}; font-size: {html_font_size / 16}em; background-color: {html_background}; text-indent: -{padding1}em; padding-left: {padding2}em; }}
             p {{ white-space: pre-wrap; margin: 0em; }}
-            ''')
+'''
 
-        html2 = textwrap.dedent('''
-            </style>
-            </head>
-            <body>
-            <div class="container">
-            <div class="contentpane">
-            ''')
+        html2 = '''
+        </style>
+    </head>
+    <body>
+        <div class="container">
+        <div class="contentpane">
+'''
 
-        html3 = textwrap.dedent('''
-            </div>
-            </div>
-            </body>
-            </html>
-            ''')
+        html3 = '''
+        </div>
+        </div>
+    </body>
+</html>
+'''
 
-        _output_html(self.view, [html1, style_text, html2, "".join(content), html3])
+        _output_html(self.view, [html1, style_text, html2, ''.join(content), html3])
 
 
 #-----------------------------------------------------------------------------------

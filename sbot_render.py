@@ -200,11 +200,10 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         gutter_size = math.ceil(math.log(len(region_styles), 10))
         padding1 = 1.4 + gutter_size * 0.5
         padding2 = padding1
-        indent = '            '
 
         for line_styles in region_styles:
             # Start line.
-            content.append(f'{indent}<p>{line_num:0{gutter_size}} ' if self._line_numbers else f'{indent}<p>')
+            content.append(f'            <p>{line_num:0{gutter_size}} ' if self._line_numbers else f'            <p>')
 
             if len(line_styles) == 0:
                 content.append('<br>')
@@ -228,14 +227,14 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         if (name is None or name == ''):
             name = 'temp'
 
-        # Output html.
+        # Output html.  , shrink-to-fit=no
         html1 = f'''
 <!doctype html>
 <html lang="en">
     <head>
         <title>{name}</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style  type="text/css">
             .contentpane {{ font-family: {html_font_face}; font-size: {html_font_size / 16}em; background-color: {html_background}; text-indent: -{padding1}em; padding-left: {padding2}em; }}
             p {{ white-space: pre-wrap; margin: 0em; }}

@@ -1,7 +1,7 @@
 [
     { "caption": "-" },
 
-    { "caption": "Render Html", "command": "sbot_render_to_html", "args" : {"line_numbers" : false} },
-    { "caption": "Render Html + Lines", "command": "sbot_render_to_html", "args" : {"line_numbers" : true} },
+    { "caption": "Render Html", "command": "sbot_render_to_html", "args" : { "line_numbers": false } },
+    { "caption": "Render Html + Lines", "command": "sbot_render_to_html", "args" : { "line_numbers": true } },
     { "caption": "Render Markdown", "command": "sbot_render_markdown" },
 ]

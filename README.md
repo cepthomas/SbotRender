@@ -11,10 +11,10 @@ Built for ST4 on Windows.
 
 ## Commands
 
-| Command                    | Type     | Description                          | Args                                  |
-| :--------                  | :------- | :-------                             | :-----                                |
-| sbot_render_to_html        | Context  | Render current file                  | line_numbers = include line numbers   |
-| sbot_render_markdown       | Context  | Render current markdown file to html |                                       |
+| Command                    | Type     | Description                          | Args                                       |
+| :--------                  | :------- | :-------                             | :-----                                     |
+| sbot_render_to_html        | Context  | Render current file                  | line_numbers: true include line numbers    |
+| sbot_render_markdown       | Context  | Render current markdown file to html |                                            |
 
 ## Settings
 
@@ -24,7 +24,7 @@ Built for ST4 on Windows.
 | html_font_face       | For rendered html                        | font name - usually monospace                                         |
 | html_font_size       | For rendered html/markdown               | point size                                                            |
 | html_background      | Background olor                          | color name                                                            |
-| output               | Where to render to                       | clipboard OR file (fn/temp + .html) OR show (in browser)              |
+| output               | Where to render to                       | folder path or "clipboard"                                            |
 | max_file             | Max file size to render                  | in Mb                                                                 |
 
 ## Colors

@@ -8,7 +8,7 @@
     // Optional css style.
     "md_render_css": "",
 
-    // Valid folder path for rendered files or "clipboard"
+    // Valid path for rendered files or "clipboard"
     "output": "clipboard",
     // Max file size to render in Mb.
     "max_file": 1,

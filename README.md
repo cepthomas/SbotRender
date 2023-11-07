@@ -24,7 +24,7 @@ Built for ST4 on Windows.
 | html_font_face       | For rendered html                        | font name - usually monospace                                         |
 | html_font_size       | For rendered html/markdown               | point size                                                            |
 | html_background      | Background olor                          | color name                                                            |
-| output               | Where to render to                       | folder path or "clipboard"                                            |
+| output               | Where to render to                       | path or "clipboard"                                                   |
 | max_file             | Max file size to render                  | in Mb                                                                 |
 
 ## Colors

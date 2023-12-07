@@ -1,7 +1,6 @@
 [
     { "caption": "-" },
-    {
-        "caption": "Render",
+    { "caption": "Render",
         "children":
         [
             { "caption": "Html", "command": "sbot_render_to_html", "args" : { "line_numbers": false } },

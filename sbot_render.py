@@ -19,18 +19,16 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     _rows = 0
     _row_num = 0
     _line_numbers = False
-    _font_size = ''
-    _font_face = ''
+    _output = ''
 
-    def run(self, edit, line_numbers=False, font_face='', font_size=''):
+    def run(self, edit, line_numbers=False, output=''):
         ''' Client can override font settings. '''
-
+        # sc.slog(sc.CAT_INF, f'>>> line_numbers={line_numbers} output={output}')
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
         self._line_numbers = line_numbers
-        self._font_face = font_face if font_face != '' else settings.get('html_font_face')
-        self._font_size = font_size if font_size != '' else settings.get('html_font_size')
-        max_file = settings.get('max_file')
+        self._output = output if output != '' else settings.get('output')
 
+        max_file = settings.get('max_file')
         fsize = self.view.size() / 1024.0 / 1024.0
         if fsize > max_file:
             sublime.message_dialog('File too large to render. If you really want to, change your settings')
@@ -58,7 +56,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
 
     def _do_render(self):
         '''
-        The worker thread.
+        The worker thread. (not)
         html render msec per line:
           - medium (5000 dense lines) 1.25
           - small (1178 sparse lines) 0.40
@@ -232,7 +230,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         if (name is None or name == ''):
             name = 'temp'
 
-        # Output html.  , shrink-to-fit=no
+        # Output html.
         html1 = f'''
 <!doctype html>
 <html lang="en">
@@ -241,7 +239,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style  type="text/css">
-            .contentpane {{ font-family: {self._font_face}; font-size: {self._font_size}; background-color: {html_background}; text-indent: -{padding1}em; padding-left: {padding2}em; }}
+            .contentpane {{ font-family: {settings.get('html_font_face')}; font-size: {settings.get('html_font_size')}; background-color: {html_background}; text-indent: -{padding1}em; padding-left: {padding2}em; }}
             p {{ white-space: pre-wrap; margin: 0em; }}
 '''
 
@@ -259,8 +257,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     </body>
 </html>
 '''
-
-        _output_html(self.view, [html1, style_text, html2, ''.join(content), html3])
+        _output_html(self.view.file_name(), self._output, [html1, style_text, html2, ''.join(content), html3])
 
 
 #-----------------------------------------------------------------------------------
@@ -270,14 +267,15 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
     def is_visible(self):
         return self.view.settings().get('syntax') == 'Packages/Markdown/Markdown.sublime-syntax'
 
-    def run(self, edit):
+    def run(self, edit, output=''):
         # Get prefs.
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+        op = output if output != '' else settings.get('output')
         md_render_css = settings.get('md_render_css')
-        if md_render_css is not None and len(md_render_css) > 0:
-            css_file = md_render_css
-        else:
-            css_file = os.path.join(sublime.packages_path(), "SbotRender", "md_render.css")
+
+        css_file = md_render_css \
+            if md_render_css is not None and len(md_render_css) > 0 \
+            else os.path.join(sublime.packages_path(), "SbotRender", "md_render.css")
 
         html = []
         html.append("<meta charset=\"utf-8\">")
@@ -288,23 +286,21 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
             html.append(self.view.substr(region))
 
         html.append("<!-- Markdeep: --><style class=\"fallback\">body{visibility:hidden;white-space:pre}</style><script src=\"markdeep.min.js\" charset=\"utf-8\"></script><script src=\"https://casual-effects.com/markdeep/latest/markdeep.min.js\" charset=\"utf-8\"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=\"visible\")</script>")
-        _output_html(self.view, '\n'.join(html))
+        _output_html(self.view.file_name(), op, '\n'.join(html))
 
 
 #-----------------------------------------------------------------------------------
-def _output_html(view, content=None):
-    ''' Common html file formatter. '''
+def _output_html(fn, output, content=None):
+    ''' Common html file output generator. '''
 
-    settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-    output_path = settings.get('output')
     s = "" if content is None else "".join(content)
 
-    if output_path == 'clipboard':
+    if output == 'clipboard':
         sublime.set_clipboard(s)
-        sublime.message_dialog('Html copied to clipboard.')
-    elif os.path.isdir(output_path):
-        basefn = 'default.html' if view.file_name() is None else os.path.basename(view.file_name()) + '.html'
-        fn = os.path.join(output_path, basefn)
+        sublime.status_message('Html copied to clipboard.')
+    elif os.path.isdir(output):
+        basefn = 'default.html' if fn is None else os.path.basename(fn) + '.html'
+        fn = os.path.join(output, basefn)
         # fn = basefn
         with open(fn, 'w', encoding='utf-8') as f:  # need to explicitly set encoding because default windows is ascii
             f.write(s)

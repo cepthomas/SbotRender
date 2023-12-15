@@ -13,8 +13,8 @@ Built for ST4 on Windows.
 
 | Command                    | Type     | Description                          | Args                                       |
 | :--------                  | :------- | :-------                             | :-----                                     |
-| sbot_render_to_html        | Context  | Render current file                  | line_numbers: true include line numbers    |
-| sbot_render_markdown       | Context  | Render current markdown file to html |                                            |
+| sbot_render_to_html        | Context  | Render current file                  | line_numbers: output override              |
+| sbot_render_markdown       | Context  | Render current markdown file to html | output override                            |
 
 ## Settings
 

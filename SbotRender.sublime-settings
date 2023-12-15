@@ -1,6 +1,6 @@
 {
     // Html cosmetics.
-    "html_font_face": "Cascadia Code",
+    "html_font_face": "Consolas",
     "html_font_size": "0.875em",
     // If you need to change the bg color. Not done automatically from color scheme.
     "html_background": "snow",

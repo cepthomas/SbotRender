@@ -13,7 +13,7 @@ Built for ST4 on Windows.
 
 | Command                    | Type     | Description                          | Args                                       |
 | :--------                  | :------- | :-------                             | :-----                                     |
-| sbot_render_to_html        | Context  | Render current file                  | line_numbers: output override              |
+| sbot_render_to_html        | Context  | Render current file to html          | line_numbers: output override              |
 | sbot_render_markdown       | Context  | Render current markdown file to html | output override                            |
 
 ## Settings
@@ -28,6 +28,7 @@ Built for ST4 on Windows.
 | max_file             | Max file size to render                  | in Mb                                                                 |
 
 ## Colors
+
 You need to supply something like these in your sublime-color-scheme file:
 ```
 { "scope": "markup.user_hl1", "background": "red", "foreground": "white" },
@@ -40,5 +41,6 @@ You need to supply something like these in your sublime-color-scheme file:
 { "scope": "markup.fixed_hl2", "background": "gainsboro", "foreground": "green" },
 { "scope": "markup.fixed_hl3", "background": "gainsboro", "foreground": "blue" },
 ```
+
 These work for all members of the sbot family.
 See [Color customization](https://www.sublimetext.com/docs/color_schemes.html#customization).

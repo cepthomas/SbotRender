@@ -19,11 +19,15 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     _rows = 0
     _row_num = 0
     _line_numbers = False
-    _output = ''
+    _output = '' # TODO1 hardcode to User/.SbotTemp - also other projects. need to create first.
+    # also fix these 
+    # Project files
+    # /temp/
+    # /store/
+
 
     def run(self, edit, line_numbers=False, output=''):
         ''' Client can override font settings. '''
-        # sc.slog(sc.CAT_INF, f'>>> line_numbers={line_numbers} output={output}')
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
         self._line_numbers = line_numbers
         self._output = output if output != '' else settings.get('output')

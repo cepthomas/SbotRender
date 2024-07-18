@@ -1,15 +1,15 @@
 {
-    // Html cosmetics.
+    ///// Cosmetics.
     "html_font_face": "Consolas",
     "html_font_size": "0.875em",
     // If you need to change the bg color. Not done automatically from color scheme.
     "html_background": "snow",
-
     // Optional css style.
     "md_render_css": "",
 
-    // Valid path for rendered files or "clipboard"
-    "output": "clipboard",
+    ///// Functionality.
+    // Ask for a file name.
+    "prompt": false,
     // Max file size to render in Mb.
     "max_file": 1,
     // Option for selection defaults. If true and no user selection, assumes the whole document (like ST).

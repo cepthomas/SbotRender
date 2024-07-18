@@ -19,18 +19,11 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     _rows = 0
     _row_num = 0
     _line_numbers = False
-    _output = '' # TODO1 hardcode to User/.SbotTemp - also other projects. need to create first.
-    # also fix these 
-    # Project files
-    # /temp/
-    # /store/
 
-
-    def run(self, edit, line_numbers=False, output=''):
-        ''' Client can override font settings. '''
-        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+    def run(self, edit, line_numbers=False):
+        ''' Go. '''
         self._line_numbers = line_numbers
-        self._output = output if output != '' else settings.get('output')
+        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
 
         max_file = settings.get('max_file')
         fsize = self.view.size() / 1024.0 / 1024.0
@@ -46,12 +39,9 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         ''' Runs in main thread. '''
         if self._row_num == 0:
             self.view.set_status('render', 'Render setting up')
-            # self.view.show_popup('Render setting up')
             sublime.set_timeout(self._update_status, 100)
         elif self._row_num >= self._rows:
             self.view.set_status('render', 'Render done')
-            # self.view.update_popup('Render done')
-            # self.view.hide_popup()
         else:
             if self._rows % 100 == 0:
                 self.view.set_status('render', f'Render {self._row_num} of {self._rows}')
@@ -137,7 +127,6 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
                 while point < line_region.b:
                     # Check if it's a highlight first as they take precedence.
                     if len(highlight_regions) > 0 and point >= highlight_regions[0][0].a:
-
                         # Start a highlight.
                         new_style = highlight_regions[0][1]
 
@@ -261,7 +250,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     </body>
 </html>
 '''
-        _output_html(self.view.file_name(), self._output, [html1, style_text, html2, ''.join(content), html3])
+        _gen_html(self.view.file_name(), [html1, style_text, html2, ''.join(content), html3])
 
 
 #-----------------------------------------------------------------------------------
@@ -271,10 +260,9 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
     def is_visible(self):
         return self.view.settings().get('syntax') == 'Packages/Markdown/Markdown.sublime-syntax'
 
-    def run(self, edit, output=''):
+    def run(self, edit):
         # Get prefs.
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-        op = output if output != '' else settings.get('output')
         md_render_css = settings.get('md_render_css')
 
         css_file = md_render_css \
@@ -290,24 +278,27 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
             html.append(self.view.substr(region))
 
         html.append("<!-- Markdeep: --><style class=\"fallback\">body{visibility:hidden;white-space:pre}</style><script src=\"markdeep.min.js\" charset=\"utf-8\"></script><script src=\"https://casual-effects.com/markdeep/latest/markdeep.min.js\" charset=\"utf-8\"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=\"visible\")</script>")
-        _output_html(self.view.file_name(), op, '\n'.join(html))
+        _gen_html(self.view.file_name(), html)
 
 
 #-----------------------------------------------------------------------------------
-def _output_html(fn, output, content=None):
+def _gen_html(fn, content):
     ''' Common html file output generator. '''
 
-    s = "" if content is None else "".join(content)
+    s = "========== NO CONTENT ==========" if content is None else ''.join(content)
 
-    if output == 'clipboard':
-        sublime.set_clipboard(s)
-        sublime.status_message('Html copied to clipboard.')
-    elif os.path.isdir(output):
-        basefn = 'default.html' if fn is None else os.path.basename(fn) + '.html'
-        fn = os.path.join(output, basefn)
-        # fn = basefn
+    settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+    prompt = settings.get('prompt')
+    save_fn = os.path.basename(fn) + '.html'
+
+    def _on_save_file(fn):
         with open(fn, 'w', encoding='utf-8') as f:  # need to explicitly set encoding because default windows is ascii
             f.write(s)
         webbrowser.open_new_tab(fn)
+
+    if prompt:
+        # print(f'save_fn:{save_fn}')
+        sublime.save_dialog(_on_save_file, directory=os.path.dirname(fn), name=save_fn)
+        # sublime.save_dialog(_on_save_file, file_types=[('Html File', ['*.html'])], directory=os.path.dirname(fn), name=save_fn, extension='.html')
     else:
-        sc.slog(sc.CAT_ERR, 'Invalid output path in settings.')
+        _on_save_file(fn + '.html')

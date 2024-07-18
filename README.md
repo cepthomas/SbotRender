@@ -1,35 +1,42 @@
 # What It Is
 
-Sublime Text plugin to do simple render to html with styles and highlights, primarily for printing.
+Sublime Text plugin to do simple render to html with styles and highlights.
 
-Built for ST4 on Windows.
+Built for ST4 on Windows and Linux.
 
+- Useful for printing in full color. First render to html, then print from browser.
+- Compatible with [SbotHighlight](https://github.com/cepthomas/SbotHighlight) (recommended) and
+  [Notr](https://github.com/cepthomas/Notr).
 - Line wrap with optional line numbers.
 - Version to render markdown file to html using [Markdeep](https://casual-effects.com/markdeep/).
 - Note that relative links (like graphics) are currently broken. If it's important, you should manually copy them to the temp directory.
-
 
 ## Commands
 
 | Command                    | Type     | Description                          | Args                                       |
 | :--------                  | :------- | :-------                             | :-----                                     |
-| sbot_render_to_html        | Context  | Render current file to html          | line_numbers: output override              |
-| sbot_render_markdown       | Context  | Render current markdown file to html | output override                            |
+| sbot_render_to_html        | Context  | Render current file to html          | line_numbers:T/F                           |
+| sbot_render_markdown       | Context  | Render current markdown file to html |                                            |
+
+Typical:
+`{ "caption": "Render Html", "command": "sbot_render_to_html", "args" : { "line_numbers": false } }`
 
 ## Settings
 
 | Setting              | Description                              | Options                                                               |
 | :--------            | :-------                                 | :------                                                               |
-| sel_all              | Selection default                        | if true and no user selection, assumes the whole document (like ST)   |
 | html_font_face       | For rendered html                        | font name - usually monospace                                         |
 | html_font_size       | For rendered html/markdown               | point size                                                            |
 | html_background      | Background olor                          | color name                                                            |
-| output               | Where to render to                       | path or "clipboard"                                                   |
+| md_render_css        | Optional css style                       |                                                                       |
+| prompt               | Ask for a render file name               | T/F                                                                   |
 | max_file             | Max file size to render                  | in Mb                                                                 |
+| sel_all              | Selection default                        | if true and no user selection, assumes the whole document (like ST)   |
+
 
 ## Colors
 
-You need to supply something like these in your sublime-color-scheme file:
+Add these (customized) to your `Packages\User\*.sublime-color-scheme` file:
 ```
 { "scope": "markup.user_hl1", "background": "red", "foreground": "white" },
 { "scope": "markup.user_hl2", "background": "green", "foreground": "white" },
@@ -42,5 +49,5 @@ You need to supply something like these in your sublime-color-scheme file:
 { "scope": "markup.fixed_hl3", "background": "gainsboro", "foreground": "blue" },
 ```
 
-These work for all members of the sbot family.
 See [Color customization](https://www.sublimetext.com/docs/color_schemes.html#customization).
+These work for all members of the sbot family.

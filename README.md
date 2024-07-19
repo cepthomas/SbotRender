@@ -36,7 +36,10 @@ Typical:
 
 ## Colors
 
-Add these (customized) to your `Packages\User\*.sublime-color-scheme` file:
+New scopes have been added to support this application. Adjust these to taste and add
+to your `Packages\User\your.sublime-color-scheme` file. Note that these are shared with other
+members of the sbot family.
+
 ```
 { "scope": "markup.user_hl1", "background": "red", "foreground": "white" },
 { "scope": "markup.user_hl2", "background": "green", "foreground": "white" },
@@ -48,6 +51,3 @@ Add these (customized) to your `Packages\User\*.sublime-color-scheme` file:
 { "scope": "markup.fixed_hl2", "background": "gainsboro", "foreground": "green" },
 { "scope": "markup.fixed_hl3", "background": "gainsboro", "foreground": "blue" },
 ```
-
-See [Color customization](https://www.sublimetext.com/docs/color_schemes.html#customization).
-These work for all members of the sbot family.

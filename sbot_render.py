@@ -4,10 +4,13 @@ import textwrap
 import pathlib
 import webbrowser
 import html
+import logging
 import sublime
 import sublime_plugin
 from . import sbot_common as sc
 
+_logger = logging.getLogger(__name__)
+_logger.setLevel(logging.DEBUG)
 
 RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
 
@@ -110,7 +113,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         # Tokenize selection by syntax scope.
         # pc = SbotPerfCounter('render_html')
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-        for region in sc.get_sel_regions(self.view, settings):
+        for region in sc.get_sel_regions(self.view):
             for line_region in self.view.split_by_newlines(region):
                 # pc.start()
                 self._row_num += 1
@@ -274,7 +277,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         # html.append("<style class=\"fallback\">body{visibility:hidden}</style>")
         html.append(f"<link rel=\"stylesheet\" href=\"{css_file}?\">")
 
-        for region in sc.get_sel_regions(self.view, settings):
+        for region in sc.get_sel_regions(self.view):
             html.append(self.view.substr(region))
 
         html.append("<!-- Markdeep: --><style class=\"fallback\">body{visibility:hidden;white-space:pre}</style><script src=\"markdeep.min.js\" charset=\"utf-8\"></script><script src=\"https://casual-effects.com/markdeep/latest/markdeep.min.js\" charset=\"utf-8\"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=\"visible\")</script>")

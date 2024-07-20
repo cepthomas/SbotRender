@@ -31,7 +31,6 @@ Typical:
 | md_render_css        | Optional css style                       |                                                                       |
 | prompt               | Ask for a render file name               | T/F                                                                   |
 | max_file             | Max file size to render                  | in Mb                                                                 |
-| sel_all              | Selection default                        | if true and no user selection, assumes the whole document (like ST)   |
 
 
 ## Colors

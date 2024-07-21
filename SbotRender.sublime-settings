@@ -12,4 +12,7 @@
     "prompt": false,
     // Max file size to render in Mb.
     "max_file": 1,
+
+    // Log level: "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
+    "log_level": "DEBUG",
 }

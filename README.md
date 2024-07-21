@@ -31,6 +31,8 @@ Typical:
 | md_render_css        | Optional css style                       |                                                                       |
 | prompt               | Ask for a render file name               | T/F                                                                   |
 | max_file             | Max file size to render                  | in Mb                                                                 |
+    // Log level: "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
+    "log_level": "DEBUG",
 
 
 ## Colors

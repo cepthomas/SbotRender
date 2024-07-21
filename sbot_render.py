@@ -10,9 +10,19 @@ import sublime_plugin
 from . import sbot_common as sc
 
 _logger = logging.getLogger(__name__)
-_logger.setLevel(logging.DEBUG)
 
 RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
+
+
+#-----------------------------------------------------------------------------------
+class RenderEvent(sublime_plugin.EventListener):
+    ''' Process view events. '''
+
+    def on_init(self, views):
+        ''' First thing that happens when plugin/window created. Initialize everything. '''
+        global _logger
+        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+        _logger.setLevel(settings.get('log_level'))
 
 
 #-----------------------------------------------------------------------------------

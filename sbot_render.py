@@ -20,7 +20,7 @@ class RenderEvent(sublime_plugin.EventListener):
 
     def on_init(self, views):
         ''' First thing that happens when plugin/window created. Initialize everything. '''
-        global _logger
+
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
         _logger.setLevel(settings.get('log_level'))
 
@@ -310,7 +310,6 @@ def _gen_html(fn, content):
         webbrowser.open_new_tab(fn)
 
     if prompt:
-        # print(f'save_fn:{save_fn}')
         sublime.save_dialog(_on_save_file, directory=os.path.dirname(fn), name=save_fn)
         # sublime.save_dialog(_on_save_file, file_types=[('Html File', ['*.html'])], directory=os.path.dirname(fn), name=save_fn, extension='.html')
     else:

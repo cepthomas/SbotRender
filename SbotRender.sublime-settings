@@ -1,18 +1,22 @@
 {
-    ///// Cosmetics.
+    // Font.
     "html_font_face": "Consolas",
+
+    // Font.
     "html_font_size": "0.875em",
+
     // If you need to change the bg color. Not done automatically from color scheme.
     "html_background": "snow",
+
     // Optional css style.
     "md_render_css": "",
 
-    ///// Functionality.
     // Ask for a file name.
     "prompt": false,
+
     // Max file size to render in Mb.
     "max_file": 1,
 
-    // Log level: "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
-    "log_level": "DEBUG",
+    // Min level to log - CRITICAL ERROR WARNING INFO DEBUG
+    "log_level": "INFO",
 }

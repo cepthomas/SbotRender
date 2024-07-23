@@ -4,12 +4,9 @@ import textwrap
 import pathlib
 import webbrowser
 import html
-import logging
 import sublime
 import sublime_plugin
 from . import sbot_common as sc
-
-_logger = logging.getLogger(__name__)
 
 RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
 
@@ -17,18 +14,13 @@ RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
 #-----------------------------------------------------------------------------------
 def plugin_loaded():
     ''' Called once per plugin instance. '''
-
-    # Set up logging.
-    _logger = sc.init_log(__package__)
-    print(f'>>> plugin_loaded() {__package__} {id(_logger)}')
+    print(f'>>> plugin_loaded() {__package__}')
 
 
 #-----------------------------------------------------------------------------------
 def plugin_unloaded():
     ''' Called once per plugin instance. '''
-
-    # Clean up logging.
-    sc.deinit_log(_logger)
+    print(f'>>> plugin_unloaded() {__package__}')
 
 
 #-----------------------------------------------------------------------------------
@@ -37,9 +29,8 @@ class RenderEvent(sublime_plugin.EventListener):
 
     def on_init(self, views):
         ''' First thing that happens when plugin/window created. Initialize everything. '''
-
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-        _logger.setLevel(settings.get('log_level'))
+        sc.set_log_level(settings.get('log_level'))
 
 
 #-----------------------------------------------------------------------------------

@@ -284,16 +284,13 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         # Get prefs.
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-        md_render_css = settings.get('md_render_css')
-
-        css_file = md_render_css \
-            if md_render_css is not None and len(md_render_css) > 0 \
-            else os.path.join(sublime.packages_path(), "SbotRender", "md_render.css")
 
         html = []
         html.append("<meta charset=\"utf-8\">")
-        # html.append("<style class=\"fallback\">body{visibility:hidden}</style>")
-        html.append(f"<link rel=\"stylesheet\" href=\"{css_file}?\">")
+
+        md_render_css = settings.get('md_render_css')
+        if md_render_css is not None and len(md_render_css) > 0:
+            html.append(f"<link rel=\"stylesheet\" href=\"{md_render_css}?\">")
 
         for region in sc.get_sel_regions(self.view):
             html.append(self.view.substr(region))

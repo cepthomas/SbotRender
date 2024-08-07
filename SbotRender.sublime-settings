@@ -11,9 +11,9 @@
     // Optional css style.
     "md_render_css": "",
 
-    // Ask for a file name.
-    "prompt": false,
-
     // Max file size to render in Mb.
     "max_file": 1,
+
+    // Output dir for rendered files. If null ask user for a file name.
+    "output_dir": null
 }

@@ -302,19 +302,24 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
 def _gen_html(fn, content):
     ''' Common html file output generator. '''
 
+    def _on_save_file(new_fn):
+        if new_fn is not None:
+            with open(new_fn, 'w', encoding='utf-8') as f:  # need to explicitly set encoding because default windows is ascii
+                f.write(s)
+            webbrowser.open_new_tab(new_fn)
+
     s = "========== NO CONTENT ==========" if content is None else ''.join(content)
 
     settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-    prompt = settings.get('prompt')
-    save_fn = os.path.basename(fn) + '.html'  # TODO1 pick a better location
+    output_dir = settings.get('output_dir')
+    save_fn = os.path.basename(fn) + '.html'
 
-    def _on_save_file(fn):
-        with open(fn, 'w', encoding='utf-8') as f:  # need to explicitly set encoding because default windows is ascii
-            f.write(s)
-        webbrowser.open_new_tab(fn)
-
-    if prompt:
+    if output_dir is None:
+        # Make default and ask user for specifics.
         sublime.save_dialog(_on_save_file, directory=os.path.dirname(fn), name=save_fn)
-        # sublime.save_dialog(_on_save_file, file_types=[('Html File', ['*.html'])], directory=os.path.dirname(fn), name=save_fn, extension='.html')
     else:
-        _on_save_file(fn + '.html')
+        # Use settings value.
+        if os.path.isdir(output_dir):
+            sublime.save_dialog(_on_save_file, directory=output_dir, name=save_fn)
+        else:
+            sublime.message_dialog(f'Invalid setting for output_dir: {output_dir}. Edit to use valid path')

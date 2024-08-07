@@ -312,7 +312,8 @@ def _gen_html(fn, content):
 
     settings = sublime.load_settings(RENDER_SETTINGS_FILE)
     output_dir = settings.get('output_dir')
-    save_fn = os.path.basename(fn) + '.html'
+    # No file name if from temp view.
+    save_fn = os.path.basename(fn if fn is not None else 'temp') + '.html'
 
     if output_dir is None:
         # Make default and ask user for specifics.

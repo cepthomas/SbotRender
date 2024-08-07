@@ -35,7 +35,6 @@ See `Context.sublime-menu` for usage.
 | md_render_css        | Optional css style                |                                      |
 | prompt               | Ask for a render file name        | true/false                           |
 | max_file             | Max file size to render           | in Mb                                |
-| log_level            | Min level to log                  | ERR WRN INF DBG TRC                  |
 
 ## Colors
 

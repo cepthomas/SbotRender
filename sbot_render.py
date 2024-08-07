@@ -30,7 +30,6 @@ class RenderEvent(sublime_plugin.EventListener):
     def on_init(self, views):
         ''' First thing that happens when plugin/window created. Initialize everything. '''
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-        sc.set_log_level(settings.get('log_level'))
 
 
 #-----------------------------------------------------------------------------------
@@ -307,7 +306,7 @@ def _gen_html(fn, content):
 
     settings = sublime.load_settings(RENDER_SETTINGS_FILE)
     prompt = settings.get('prompt')
-    save_fn = os.path.basename(fn) + '.html'
+    save_fn = os.path.basename(fn) + '.html'  # TODO1 pick a better location
 
     def _on_save_file(fn):
         with open(fn, 'w', encoding='utf-8') as f:  # need to explicitly set encoding because default windows is ascii

@@ -6,12 +6,7 @@ import webbrowser
 import html
 import sublime
 import sublime_plugin
-from .SbotCommon import common as sc
-from .SbotCommon import logger as log
-from .SbotCommon.tracer import *
-
- # Initialize logging.
-log.init(sc.get_store_fn('sbot.log'))
+from . import sbot_common as sc
 
 
 RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
@@ -20,7 +15,7 @@ RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
 #-----------------------------------------------------------------------------------
 def plugin_loaded():
     '''Called per plugin instance.'''
-    log.info(f'plugin_loaded() {__package__}')
+    sc.info(f'plugin_loaded() {__package__}')
 
 
 #-----------------------------------------------------------------------------------

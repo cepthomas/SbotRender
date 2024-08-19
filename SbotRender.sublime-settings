@@ -14,6 +14,6 @@
     // Max file size to render in Mb.
     "max_file": 1,
 
-    // Output dir for rendered files. If null ask user for a file name.
+    // Output dir for rendered files. Assumed to exist. If null ask user for a file name.
     "output_dir": null
 }

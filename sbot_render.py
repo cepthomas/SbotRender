@@ -303,7 +303,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
 def _gen_html(fn, content):
     ''' Common html file output generator. '''
 
-    def _on_save_file(new_fn):
+    def _save_file(new_fn):
         if new_fn is not None:
             with open(new_fn, 'w', encoding='utf-8') as f:  # need to explicitly set encoding because default windows is ascii
                 f.write(s)
@@ -318,10 +318,10 @@ def _gen_html(fn, content):
 
     if output_dir is None:
         # Make default and ask user for specifics.
-        sublime.save_dialog(_on_save_file, directory=os.path.dirname(fn), name=save_fn)
+        sublime.save_dialog(_save_file, directory=os.path.dirname(fn), name=save_fn)
     else:
         # Use settings value.
         if os.path.isdir(output_dir):
-            sublime.save_dialog(_on_save_file, directory=output_dir, name=save_fn)
+            _save_file(os.path.join(output_dir, save_fn))
         else:
             sublime.message_dialog(f'Invalid setting for output_dir: {output_dir}. Edit to use valid path')

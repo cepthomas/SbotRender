@@ -324,4 +324,4 @@ def _gen_html(fn, content):
         if os.path.isdir(output_dir):
             _save_file(os.path.join(output_dir, save_fn))
         else:
-            sublime.message_dialog(f'Invalid setting for output_dir: {output_dir}. Edit to use valid path')
+            sublime.message_dialog(f'Invalid setting for output_dir: {output_dir}. Supply valid path')

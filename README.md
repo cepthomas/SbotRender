@@ -1,4 +1,4 @@
-# Sbot Render
+# SbotRender
 
 Sublime Text plugin to do simple rendering to html with styles and highlights.
 The primary purpose is for printing in full color. First render to html, then print from browser.
@@ -12,17 +12,28 @@ Line wrap with optional line numbers.
 
 Render markdown file to html using [Markdeep](https://casual-effects.com/markdeep/).
 
-Note that relative links (like graphics) are currently broken. If it's important, you should manually
+Note that relative links (like graphics) are currently unsupported. If it's important, you should manually
 copy them to the output directory.
 
 ## Commands
 
-See `Context.sublime-menu` for usage.
+| Command                    | Description                          | Args                        |
+| :--------                  | :-------                             | :-----                      |
+| sbot_render_to_html        | Render current file to html          | line_numbers:true/false     |
+| sbot_render_markdown       | Render current markdown file to html |                             |
 
-| Command                    | Type     | Description                          | Args                        |
-| :--------                  | :------- | :-------                             | :-----                      |
-| sbot_render_to_html        | Context  | Render current file to html          | line_numbers:true/false     |
-| sbot_render_markdown       | Context  | Render current markdown file to html |                             |
+There is no default `Context.sublime-menu` file in this plugin.
+Add the commands you like to your own `User\Context.sublime-menu` file. Typical entries are:
+``` json
+{ "caption": "Render",
+    "children":
+    [
+        { "caption": "Html", "command": "sbot_render_to_html", "args" : { "line_numbers": false } },
+        { "caption": "Html + Lines", "command": "sbot_render_to_html", "args" : { "line_numbers": true } },
+        { "caption": "Markdown", "command": "sbot_render_markdown" },
+    ]
+}
+```
 
 
 ## Settings
@@ -33,8 +44,9 @@ See `Context.sublime-menu` for usage.
 | html_font_size       | For rendered html/markdown        | point size                           |
 | html_background      | Background olor                   | color name                           |
 | md_render_css        | Optional css style                |                                      |
-| prompt               | Ask for a render file name        | true/false                           |
 | max_file             | Max file size to render           | in Mb                                |
+| output_dir           | Output dir for rendered files. If null ask user for a file name.      |  |
+
 
 ## Colors
 

@@ -3,17 +3,19 @@
 Sublime Text plugin to do simple rendering to html with styles and highlights.
 The primary purpose is for printing in full color. First render to html, then print from browser.
 
+Line wrap with optional line numbers.
+
+Renders markdown file to html using [Markdeep](https://casual-effects.com/markdeep/).
+There are some canned styles or use your own css file.
+
+Note that relative links (like graphics) are currently unsupported. If it's important, you should manually
+copy them to the output directory.
+
 Built for ST4 on Windows and Linux.
 
 Compatible with [SbotHighlight](https://github.com/cepthomas/SbotHighlight) (recommended) and
   [Notr](https://github.com/cepthomas/Notr).
 
-Line wrap with optional line numbers.
-
-Render markdown file to html using [Markdeep](https://casual-effects.com/markdeep/).
-
-Note that relative links (like graphics) are currently unsupported. If it's important, you should manually
-copy them to the output directory.
 
 ## Commands
 
@@ -38,14 +40,14 @@ Add the commands you like to your own `User\Context.sublime-menu` file. Typical 
 
 ## Settings
 
-| Setting              | Description                       | Options                              |
-| :--------            | :-------                          | :------                              |
-| html_font_face       | For rendered html                 | font name - usually monospace        |
-| html_font_size       | For rendered html/markdown        | point size                           |
-| html_background      | Background olor                   | color name                           |
-| md_render_css        | Optional css style                |                                      |
-| max_file             | Max file size to render           | in Mb                                |
-| output_dir           | Output dir for rendered files. If null ask user for a file name.      |  |
+| Setting         | Description                | Options                                 |
+| :--------       | :-------                   | :------                                 |
+| html_font_face  | For rendered html          | font name - usually monospace           |
+| html_font_size  | For rendered html/markdown | point size                              |
+| html_background | Background olor            | color name                              |
+| max_file        | Max file size to render    | in Mb                                   |
+| md_render_style | Markdown style             | simple OR light_api OR dark_api OR valid-style-file.css |
+| output_dir      | Output dir for rendered files - if null ask user for a file name. |  |
 
 
 ## Colors

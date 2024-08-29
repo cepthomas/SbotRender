@@ -9,7 +9,7 @@
     "html_background": "snow",
 
     // Optional md style. "simple", "light_api", "dark_api", "valid-style-file.css"
-    "md_render_style": "simple",
+    "md_render_style": "dark_api",
 
     // Max file size to render in Mb.
     "max_file": 1,

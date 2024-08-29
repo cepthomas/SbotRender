@@ -111,7 +111,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         # Start progress.
         sublime.set_timeout(self._update_status, 100)
 
-        # If there are SbotHighlight highlights, collect them.
+        # If there are Highlight Token highlights, collect them.
         hl_info = sc.get_highlight_info('all')
 
         for hl in hl_info:

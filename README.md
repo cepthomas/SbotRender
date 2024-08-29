@@ -1,4 +1,4 @@
-# SbotRender
+# Render View
 
 Sublime Text plugin to do simple rendering to html with styles and highlights.
 The primary purpose is for printing in full color. First render to html, then print from browser.
@@ -13,7 +13,7 @@ copy them to the output directory.
 
 Built for ST4 on Windows and Linux.
 
-Compatible with [SbotHighlight](https://github.com/cepthomas/SbotHighlight) (recommended) and
+Compatible with [Highlight Token](https://github.com/cepthomas/SbotHighlight) (recommended) and
   [Notr](https://github.com/cepthomas/Notr).
 
 

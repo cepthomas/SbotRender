@@ -17,7 +17,7 @@ Compatible with [Highlight Token](https://github.com/cepthomas/SbotHighlight) (r
   [Notr](https://github.com/cepthomas/Notr).
 
 
-## Commands
+## Commands and Menus
 
 | Command                    | Description                          | Args                        |
 | :--------                  | :-------                             | :-----                      |

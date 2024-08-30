@@ -287,7 +287,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
 
         html = []
 
-        md_render_style = settings.get('md_render_style')
+        md_render_style = settings.get('md_render_style')  # TODO Still not happy with these.
 
         if md_render_style == "simple":
             html.append("<style>body {{ background-color: LightYellow; font-family: arial; font-size: 16; }}</style>")
@@ -316,7 +316,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
             html.append("<script src =""https://casual-effects.com/markdeep/latest/markdeep.min.js"" charset=""utf-8""></script>")
             html.append("<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=""visible"")</script>")
 
-        elif os.path.exists(md_render_style):
+        elif os.path.exists(md_render_style):  # css file?
             html.append(f"<link rel=\"stylesheet\" href=\"{md_render_style}?\">")
             for region in sc.get_sel_regions(self.view):
                 html.append(self.view.substr(region))

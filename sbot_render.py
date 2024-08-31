@@ -287,43 +287,22 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
 
         html = []
 
-        md_render_style = settings.get('md_render_style')  # TODO Still not happy with these.
+        # User css or default?
+        md_css = settings.get('md_css')
+        css_fn = md_css if os.path.exists(md_css) else os.path.join(os.path.dirname(__file__), 'render.css')
 
-        if md_render_style == "simple":
-            html.append("<style>body {{ background-color: LightYellow; font-family: arial; font-size: 16; }}</style>")
-            for region in sc.get_sel_regions(self.view):
-                html.append(self.view.substr(region))
-            html.append("<style class=""fallback"">body{{visibility:hidden}}</style>")
-            html.append("<script src =""https://casual-effects.com/markdeep/latest/markdeep.min.js"" charset=""utf-8""></script>")
-            html.append("<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=""visible"")</script>")
+        # Build it.
+        for region in sc.get_sel_regions(self.view):
+            html.append(self.view.substr(region))
+        html.append(f'<link rel="stylesheet" type="text/css" href="{css_fn}"/>')
 
-        elif md_render_style == "light_api":
-            html.append("<meta charset=""utf-8"">")
-            html.append("<link rel=""stylesheet"" href=""https://casual-effects.com/markdeep/latest/apidoc.css?"">")
-            for region in sc.get_sel_regions(self.view):
-                html.append(self.view.substr(region))
-            html.append("<style class=""fallback"">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'medium'};</script>")
-            html.append("<script src=""https://casual-effects.com/markdeep/latest/markdeep.min.js?"" charset=""utf-8""></script>")
-            html.append("<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=""visible"")</script>")
-
-        elif md_render_style == "dark_api":
-            html.append("<meta charset=""utf-8"">")
-            html.append("<link rel=""stylesheet"" href=""https://casual-effects.com/markdeep/latest/slate.css?"">")
-            for region in sc.get_sel_regions(self.view):
-                html.append(self.view.substr(region))
-            html.append("<style class=""fallback"">body{{visibility:hidden}}</style>")
-            html.append("<script>markdeepOptions={tocStyle:'long'};</script>")
-            html.append("<script src =""https://casual-effects.com/markdeep/latest/markdeep.min.js"" charset=""utf-8""></script>")
-            html.append("<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility=""visible"")</script>")
-
-        elif os.path.exists(md_render_style):  # css file?
-            html.append(f"<link rel=\"stylesheet\" href=\"{md_render_style}?\">")
-            for region in sc.get_sel_regions(self.view):
-                html.append(self.view.substr(region))
-
+        if settings.get('md_toc'):
+            html.append('<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:"long"};</script>')
         else:
-            sc.warn(f'Invalid render style: {md_render_style}')
-            html = None
+            html.append('<style class="fallback">body{visibility:hidden}</style>')
+
+        html.append('<script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>')
+        html.append('<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>')
 
         if html is not None:
             _gen_html(self.view.file_name(), html)

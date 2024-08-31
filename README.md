@@ -21,7 +21,7 @@ Compatible with [Highlight Token](https://github.com/cepthomas/SbotHighlight) (r
 
 | Command                    | Description                          | Args                        |
 | :--------                  | :-------                             | :-----                      |
-| sbot_render_to_html        | Render current file to html          | line_numbers:true/false     |
+| sbot_render_to_html        | Render current file to html          | line_numbers:true OR false  |
 | sbot_render_markdown       | Render current markdown file to html |                             |
 
 There is no default `Context.sublime-menu` file in this plugin.
@@ -46,7 +46,7 @@ Add the commands you like to your own `User\Context.sublime-menu` file. Typical 
 | html_font_size  | For rendered html/markdown | point size                              |
 | html_background | Background olor            | color name                              |
 | max_file        | Max file size to render    | in Mb                                   |
-| md_render_style | Markdown style             | simple OR light_api OR dark_api OR valid-style-file.css |
+| md_css          | Optional css file for md   |                                         |
 | output_dir      | Output dir for rendered files - if null ask user for a file name. |  |
 
 

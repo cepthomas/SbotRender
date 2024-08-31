@@ -8,8 +8,11 @@
     // If you need to change the bg color. Not done automatically from color scheme.
     "html_background": "snow",
 
-    // Optional md style. "simple", "light_api", "dark_api", "valid-style-file.css"
-    "md_render_style": "simple",
+    // Optional markdown css.
+    "md_css": "",
+
+    // Optional markdown table of contents.
+    "md_toc": false,
 
     // Max file size to render in Mb.
     "max_file": 1,

@@ -299,8 +299,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         if settings.get('md_toc'):
             html.append('<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:"long"};</script>')
         else:
-            html.append('<style class="fallback">body{visibility:hidden}</style>')
-
+            html.append('<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:"none"};</script>')
         html.append('<script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>')
         html.append('<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>')
 

@@ -6,9 +6,9 @@ body#md {
 
 /* reset heading/link fonts to that of body */
 .md a,
-.md div.title, contents,
+.md div.title, contents, .md .tocHeader, .md .table,
 .md h1, .md h2, .md h3, .md h4, .md h5, .md h6,
-.md .table {
+.md .shortTOC, .md .mediumTOC, .md .longTOC {
     font-family: inherit;
 }
 
@@ -28,7 +28,7 @@ body#md {
 }
 
 /* heading font styles */
-.md h1, .md div.title {
+.md h1, .md div.title, .md .tocHeader {
     font-size: 150%;
     font-weight: 600;
     color: rgba(0, 0, 0, .7);

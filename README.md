@@ -4,7 +4,7 @@ Sublime Text plugin renders the text in a view to html with all scheme colors.
 
 The primary purpose is for wysiwyg printing in full color: first render to html, then print from the browser.
 
-Built for ST4 on Windows and Linux.
+Built for ST4 on Windows and Linux (lightly tested).
 
 
 ## Features
@@ -69,3 +69,7 @@ members of the sbot family.
 { "scope": "markup.fixed_hl2", "background": "gainsboro", "foreground": "green" },
 { "scope": "markup.fixed_hl3", "background": "gainsboro", "foreground": "blue" },
 ```
+
+## Notes
+
+- Log file is in $APPDATA\Sublime Text\Packages\User\.SbotStore\sbot.log.

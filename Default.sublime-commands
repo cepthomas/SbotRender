@@ -1,0 +1,6 @@
+[
+    { "caption": "Render View: Html", "command": "sbot_render_to_html", "args" : { "line_numbers": false } },
+    { "caption": "Render View: Html + Lines", "command": "sbot_render_to_html", "args" : { "line_numbers": true } },
+    { "caption": "Render View: Markdown", "command": "sbot_render_markdown" },
+    { "caption": "Render View: Edit Settings", "command": "edit_settings", "args": { "base_file": "${packages}/SbotRender/SbotRender.sublime-settings", "default": "{\n$0\n}\n" } }
+]

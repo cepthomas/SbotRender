@@ -1,7 +1,5 @@
 import os
 import math
-import textwrap
-import pathlib
 import webbrowser
 import html
 import sublime
@@ -30,7 +28,7 @@ class RenderEvent(sublime_plugin.EventListener):
 
     def on_init(self, views):
         ''' First thing that happens when plugin/window created. Initialize everything. '''
-        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+        pass
 
 
 #-----------------------------------------------------------------------------------
@@ -46,8 +44,8 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         self._line_numbers = line_numbers
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
 
-        max_file = settings.get('max_file')
-        fsize = self.view.size() / 1024.0 / 1024.0
+        max_file = int(str(settings.get('max_file')))
+        fsize = self.view.size() / 1024 / 1024
         if fsize > max_file:
             sublime.message_dialog('File too large to render. If you really want to, change your settings')
         else:
@@ -288,7 +286,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         html = []
 
         # User css or default?
-        md_css = settings.get('md_css')
+        md_css = str(settings.get('md_css'))
         css_fn = md_css if os.path.exists(md_css) else os.path.join(os.path.dirname(__file__), 'render.css')
 
         # Build it.
@@ -320,7 +318,7 @@ def _gen_html(fn, content):
     s = "========== NO CONTENT ==========" if content is None else ''.join(content)
 
     settings = sublime.load_settings(RENDER_SETTINGS_FILE)
-    output_dir = settings.get('output_dir')
+    output_dir = str(settings.get('output_dir'))
     # No file name if from temp view.
     save_fn = os.path.basename(fn if fn is not None else 'temp') + '.html'
 

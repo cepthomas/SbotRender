@@ -27,8 +27,8 @@ class RenderEvent(sublime_plugin.EventListener):
     ''' Process view events. '''
 
     def on_init(self, views):
-        ''' First thing that happens when plugin/window created. Initialize everything. '''
-        pass
+        # First thing that happens when plugin/window created. Initialize everything.
+        del views
 
 
 #-----------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     _line_numbers = False
 
     def run(self, edit, line_numbers=False):
-        ''' Go. '''
+        del edit
         self._line_numbers = line_numbers
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
 
@@ -238,7 +238,11 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         # Give it a name.
         name = self.view.name()
         if (name is None or name == '') and self.view.file_name() is not None:
-            name = os.path.basename(os.path.splitext(self.view.file_name())[0])
+            # name = os.path.basename(os.path.splitext(self.view.file_name())[0])
+            name = str(self.view.file_name())
+            parts = os.path.splitext(name)
+            name = parts[0]
+
         if (name is None or name == ''):
             name = 'temp'
 
@@ -280,6 +284,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         return self.view.settings().get('syntax') == 'Packages/Markdown/Markdown.sublime-syntax'
 
     def run(self, edit):
+        del edit
         # Get prefs.
         settings = sublime.load_settings(RENDER_SETTINGS_FILE)
 

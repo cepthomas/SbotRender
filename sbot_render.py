@@ -13,7 +13,7 @@ RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
 #-----------------------------------------------------------------------------------
 def plugin_loaded():
     '''Called per plugin instance.'''
-    sc.info(f'plugin_loaded() {__package__}')
+    sc.debug(f'plugin_loaded() {__package__}')
 
 
 #-----------------------------------------------------------------------------------

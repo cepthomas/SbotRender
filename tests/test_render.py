@@ -9,10 +9,11 @@ import emu_sublime_api as emu
 
 # Import the code under test.
 import sbot_common as sc
+import sbot_render
 
 
 #-----------------------------------------------------------------------------------
-class TestCommon(unittest.TestCase):
+class TestRender(unittest.TestCase):  # TODOT more tests
 
     def setUp(self):
         pass
@@ -23,10 +24,3 @@ class TestCommon(unittest.TestCase):
     # @unittest.skip('')
     def test_basic(self):
         pass
-
-
-#-----------------------------------------------------------------------------------
-if __name__ == '__main__':
-    # https://docs.python.org/3/library/unittest.html#unittest.main
-    tp = unittest.main()  # verbosity=2, exit=False)
-    print(tp.result)

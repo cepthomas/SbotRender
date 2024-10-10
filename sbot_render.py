@@ -4,12 +4,10 @@ import webbrowser
 import html
 import sublime
 import sublime_plugin
-
-# Kludge to make testing work.
 try:
-    import sbot_common as sc
+    from . import sbot_common as sc  # normal import
 except:
-    from . import sbot_common as sc
+    import sbot_common as sc  # unittest import
 
 
 RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"

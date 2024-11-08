@@ -10,12 +10,10 @@ except:
     import sbot_common as sc  # unittest import
 
 
-RENDER_SETTINGS_FILE = "SbotRender.sublime-settings"
-
-
 #-----------------------------------------------------------------------------------
 def plugin_loaded():
     '''Called per plugin instance.'''
+    sc.init('RenderView')
     sc.debug(f'plugin_loaded() {__package__}')
 
 
@@ -45,7 +43,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
     def run(self, edit, line_numbers=False):
         del edit
         self._line_numbers = line_numbers
-        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+        settings = sublime.load_settings(sc.get_settings_fn())
 
         max_file = int(str(settings.get('max_file')))
         fsize = self.view.size() / 1024 / 1024
@@ -80,7 +78,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
         '''
 
         # Get prefs.
-        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+        settings = sublime.load_settings(sc.get_settings_fn())
         html_background = settings.get('html_background')
 
         # Collect scope/style info. Styles will be turned into html styles.
@@ -131,7 +129,7 @@ class SbotRenderToHtmlCommand(sublime_plugin.TextCommand):
 
         # Tokenize selection by syntax scope.
         # pc = SbotPerfCounter('render_html')
-        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+        settings = sublime.load_settings(sc.get_settings_fn())
         for region in sc.get_sel_regions(self.view):
             for line_region in self.view.split_by_newlines(region):
                 # pc.start()
@@ -289,7 +287,7 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         del edit
         # Get prefs.
-        settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+        settings = sublime.load_settings(sc.get_settings_fn())
 
         html = []
 
@@ -325,7 +323,7 @@ def _gen_html(fn, content):
 
     s = "========== NO CONTENT ==========" if content is None else ''.join(content)
 
-    settings = sublime.load_settings(RENDER_SETTINGS_FILE)
+    settings = sublime.load_settings(sc.get_settings_fn())
     output_dir = str(settings.get('output_dir'))
     # No file name if from temp view.
     save_fn = os.path.basename(fn if fn is not None else 'temp') + '.html'

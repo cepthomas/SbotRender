@@ -4,7 +4,7 @@ Sublime Text plugin renders the text in a view to html with all scheme colors.
 
 The primary purpose is for wysiwyg printing in full color: first render to html, then print from the browser.
 
-Built for ST4 on Windows and Linux (lightly tested).
+Built for ST4 on Windows. Linux and OSX should be ok but are minimally tested - PRs welcome.
 
 
 ## Features
@@ -74,4 +74,4 @@ members of the sbot family.
 
 - `sbot_common.py` contains miscellaneous common components primarily for internal use by the sbot family.
   This includes a very simple logger primarily for user-facing information, syntax errors and the like.
-  Log file is in $APPDATA\Sublime Text\Packages\User\.SbotStore\sbot.log.
+  Log file is in $APPDATA\Sublime Text\Packages\User\RenderView\sbot.log.

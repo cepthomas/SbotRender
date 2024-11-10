@@ -13,7 +13,6 @@ except:
 #-----------------------------------------------------------------------------------
 def plugin_loaded():
     '''Called per plugin instance.'''
-    sc.init('RenderView')
     sc.debug(f'plugin_loaded() {__package__}')
 
 

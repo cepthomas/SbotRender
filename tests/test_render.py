@@ -8,7 +8,7 @@ from unittest.mock import MagicMock
 import emu_sublime_api as emu
 
 # Import the code under test.
-import sbot_common as sc
+# import sbot_common as sc
 import sbot_render
 
 
@@ -16,7 +16,6 @@ import sbot_render
 class TestRender(unittest.TestCase):  # TODOT more tests
 
     def setUp(self):
-        # sc.init('_Test')
         pass
 
     def tearDown(self):

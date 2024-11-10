@@ -49,6 +49,7 @@ Add the commands you like to your own `User\Context.sublime-menu` file. Typical 
 | html_background | Background color           | color name                              |
 | max_file        | Max file size to render    | in Mb                                   |
 | md_css          | Optional css file for md   |                                         |
+| md_toc          | Optional table of contents |                                         |
 | output_dir      | Output dir for rendered files - if null asks user for a file name. | |
 
 

@@ -9,7 +9,6 @@ try:
 except:
     import sbot_common as sc  # unittest import
 
-# TODO Update pkg control for all platforms.
 
 #-----------------------------------------------------------------------------------
 def plugin_loaded():

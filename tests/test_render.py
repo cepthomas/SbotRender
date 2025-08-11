@@ -13,7 +13,7 @@ import sbot_render
 
 
 #-----------------------------------------------------------------------------------
-class TestRender(unittest.TestCase):  # TEST more tests
+class TestRender(unittest.TestCase):  # TODO1 more tests
 
     def setUp(self):
         pass

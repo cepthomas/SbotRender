@@ -10,13 +10,13 @@ from . import sbot_common as sc
 
 #-----------------------------------------------------------------------------------
 def plugin_loaded():
-    '''Called per plugin instance.'''
+    ''' Called per plugin instance. '''
     pass
 
 
 #-----------------------------------------------------------------------------------
 def plugin_unloaded():
-    '''Ditto.'''
+    ''' Called per plugin instance. '''
     pass
 
 

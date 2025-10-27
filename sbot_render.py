@@ -3,6 +3,7 @@ import os
 import math
 import webbrowser
 import html
+import shutil
 import sublime
 import sublime_plugin
 from . import sbot_common as sc
@@ -285,22 +286,32 @@ class SbotRenderMarkdownCommand(sublime_plugin.TextCommand):
         del edit
         # Get prefs.
         settings = sublime.load_settings(sc.get_settings_fn())
+        output_dir = str(settings.get('output_dir'))
 
         html = []
-
-        # User css or default?
-        md_css = str(settings.get('md_css'))
-        css_fn = md_css if os.path.exists(md_css) else os.path.join(os.path.dirname(__file__), 'render.css')
 
         # Build it.
         for region in sc.get_sel_regions(self.view):
             html.append(self.view.substr(region))
-        html.append(f'<link rel="stylesheet" type="text/css" href="{css_fn}"/>')
+
+        # User css or default?
+        md_css = str(settings.get('md_css'))
+
+        if md_css is None or len(md_css) == 0:
+            sc.info(f'No css file specified - using default')
+        elif not os.path.exists(md_css):
+            sc.error(f'Invalid css file [{md_css}]')
+        else:
+            # Copy to output dir.
+            fn = os.path.basename(md_css)
+            shutil.copyfile(md_css, os.path.join(output_dir, fn))
+            html.append(f'<link rel="stylesheet" type="text/css" href="{fn}"/>')
 
         if settings.get('md_toc'):
             html.append('<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:"long"};</script>')
         else:
             html.append('<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:"none"};</script>')
+
         html.append('<script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>')
         html.append('<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>')
 

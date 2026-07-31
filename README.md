@@ -27,7 +27,7 @@ Built for ST4 on Windows. Linux and OSX should be ok but are minimally tested - 
 | sbot_render_markdown       | Render current markdown file to html |                             |
 
 There is no default `Context.sublime-menu` file in this plugin.
-Add the commands you like to your own `User\Context.sublime-menu` file. Typical entries are:
+Add the commands you like to your own `User/Context.sublime-menu` file. Typical entries are:
 ``` json
 { "caption": "Render",
     "children":
@@ -56,7 +56,7 @@ Add the commands you like to your own `User\Context.sublime-menu` file. Typical 
 ## Colors
 
 New scopes have been added to support this application. Adjust these to taste and add
-to your active `Packages\User\your.sublime-color-scheme` file.
+to your active `Packages/User/your.sublime-color-scheme` file.
 Note that these are shared with the `Notr` and `Highlight Token` packages.
 
 
@@ -76,7 +76,7 @@ Note that these are shared with the `Notr` and `Highlight Token` packages.
 
 - `sbot_common.py` contains miscellaneous common components primarily for internal use by the sbot family.
   This includes a very simple logger primarily for user-facing information, syntax errors and the like.
-  Log file is in `<ST_PACKAGES_DIR>\User\RenderView\RenderView.log`.
+  Log file is in `<ST_PACKAGES_DIR>/User/RenderView/RenderView.log`.
 
 - If you pull the source it must be in a directory named `Render View` rather than the repo name.
   This is to satisfy PackageControl naming requirements.
